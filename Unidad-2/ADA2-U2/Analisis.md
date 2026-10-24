@@ -1,0 +1,23 @@
+# Analisis de arquitectura - sistema clinica psicologica
+
+sabemos que el proyecto desde su disño tiene varios huecos en al parte de arquitectura que debeian ser arreglado, porque una arquitecurr afuertemente basada en mvc, que es una arquitectua que para loq ue necesitavmoa funcionaba, es cuierto porque al fin y al cabo era un CRUD de citas es lo que estavamos haciendo, pero obviamente no tener en ceunta las demas aqrquitecturas y ahora viendo lo en perpectiva te das cuenta que quizas debimos aunque sea condierar una arquitectura diferente a la que tomamos en ese tiempo.
+
+## problemas arquitectonicos 
+
+el problema principal que veo es que quizas en al parte que usamos MVC aunque haya estado fuertemene oreintado a este patron, creo que hubiera sido bueno que se autocompletaran entre si mvc y bbiorker ya que mvc es usado para la estructura interna del proyecto, recibe la peteicion, la procesa con la logica de negocio, accede a los datos de los modelos. Broker en cambio organiza como se hablan las aplicaicones y servicios, asi que la arquitectura objetivo que tendria en este momento seria que como ya dije el MVC se encargue de la parte interna del proyecto la API, pero se incorporan características del patrón Broker: la capa de API actúa como intermediario que desacopla al cliente de los servicios internos, de esta maner descoplamos y el cliente ni elservidor estan conectados direcmtament ni necesitan saber donde estan ni en que lenguuge estan hechos ni nada de eso porque todo eso se encarga el intermediario.
+y una ventaja grande que tenenmos al combinar ambos es que podemos combianr difernetes tecnologias gracias a que no importa si el cleinte o el servido usan uina tecnologia o otra porque ellos no tiene la necesidad de conocer eso, eso esta encargado el intermediraio qu eetse caso es la api que usara el modelo o usa el modelo de MVC.
+
+> ahora para que se entienda mejor lo que voy a hacer es una tabla comparatica para que se entiendan los diferenten patrones arquitectonico
+
+## Comparación de alternativas 
+
+| criterio                              | broker | MVC | Reflection   | 
+|------------------------------------   |-----|-----|-----|
+| ¿Resuelve el problema identificado?   | si, este seria una de las opciones qu epodriamousar para resolver nuestro problema, ya qeu seria una copmbinacion de dos patrones mvc y broker ya que en un pryecto grande es muy normal que se use mas de un patron arquitectonico, por lo que en una propueta pra resolverlo seria poder combinar el mvc para la api y broker para inmtereacion entre cliente y servidor  | no, a mendiaas porque este patron de arquitectura ya esta implenmtado asi que se pude decir que resuelve el problema del sistema, pero se habla de el problema con el sistema tal como esta pues no porque ya esta implementado | no | 
+| Atributos favorecidos                 | este favorece a la felexiblidad en tencoligas y concexiones ya que como estan separado el cleitne y el servidor no importa el lenguage, la logica si no la comuncion entre componentes distribuidos  | el atributo favorecido es que tenemos separa la inertafz, entrad de datos y logica dentro de la aplicaiocn   | en nuestro sistema no encaja porque las reglas ya estan deifindinas en codgio, tambien porque el estado de la ciea es un conjunto cerrado  | 
+| Beneficios                            | el desacloplamietno/flexiblidad | Separación de responsabilidadesm, matenebilidad, facilidad de prueba  | te ayuda a ser max felexible a cambios de feature en produccion, evitando tanto cambio de codigo | 
+| Limitaciones                          | tiene un cuello de botella ya que todo pasa por el, el sitema se ahce dependiete de si el brojer cae se detiene el sistema | sobre ingenieria en sitemas pequeños no es necesario ya que teiene mas archivos d elo s que en verdad se necesita,  no define cómo se comunican procesos o servidores distintos.  | menor rendimiento, muchos errores aparecen en ejecución, no al compilar.apareces  | 
+| Complejidad agregada                  | complejidad de depuracion, es mas compliacdo seguir una peticion entre varios componenetes | no resulve como se comuncan processo atravez de servidores distintos  | el código es menos legible y más difícil de probar. | 
+| Viabilidad en el sistema    !nota esto en sitemas grandes          | es muy viable y es necesario en sitemas grandes y distribudis, que usan muchas tecnologias | muy viable es el estandar en paginas web grandes modernas | esta es viable pero en agunos casos especificos,, como comentaba de saber que los requsiutos cambiaran mas de una vez, pero ew complejo de mantener por lo que es el menos viable en sistemas grandes  | 
+
+
