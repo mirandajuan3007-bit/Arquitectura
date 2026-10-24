@@ -2,14 +2,14 @@
 
 sabemos que el proyecto desde su disño tiene varios huecos en al parte de arquitectura que debeian ser arreglado, porque una arquitecurr afuertemente basada en mvc, que es una arquitectua que para loq ue necesitavmoa funcionaba, es cuierto porque al fin y al cabo era un CRUD de citas es lo que estavamos haciendo, pero obviamente no tener en ceunta las demas aqrquitecturas y ahora viendo lo en perpectiva te das cuenta que quizas debimos aunque sea condierar una arquitectura diferente a la que tomamos en ese tiempo.
 
-## problemas arquitectonicos 
+## 2 problemas arquitectonicos 
 
 el problema principal que veo es que quizas en al parte que usamos MVC aunque haya estado fuertemene oreintado a este patron, creo que hubiera sido bueno que se autocompletaran entre si mvc y bbiorker ya que mvc es usado para la estructura interna del proyecto, recibe la peteicion, la procesa con la logica de negocio, accede a los datos de los modelos. Broker en cambio organiza como se hablan las aplicaicones y servicios, asi que la arquitectura objetivo que tendria en este momento seria que como ya dije el MVC se encargue de la parte interna del proyecto la API, pero se incorporan características del patrón Broker: la capa de API actúa como intermediario que desacopla al cliente de los servicios internos, de esta maner descoplamos y el cliente ni elservidor estan conectados direcmtament ni necesitan saber donde estan ni en que lenguuge estan hechos ni nada de eso porque todo eso se encarga el intermediario.
 y una ventaja grande que tenenmos al combinar ambos es que podemos combianr difernetes tecnologias gracias a que no importa si el cleinte o el servido usan uina tecnologia o otra porque ellos no tiene la necesidad de conocer eso, eso esta encargado el intermediraio qu eetse caso es la api que usara el modelo o usa el modelo de MVC.
 
 > ahora para que se entienda mejor lo que voy a hacer es una tabla comparatica para que se entiendan los diferenten patrones arquitectonico
 
-## Comparación de alternativas 
+## 3 Comparación de alternativas 
 
 | criterio                              | broker | MVC | Reflection   | 
 |------------------------------------   |-----|-----|-----|
@@ -20,4 +20,28 @@ y una ventaja grande que tenenmos al combinar ambos es que podemos combianr dife
 | Complejidad agregada                  | complejidad de depuracion, es mas compliacdo seguir una peticion entre varios componenetes | no resulve como se comuncan processo atravez de servidores distintos  | el código es menos legible y más difícil de probar. | 
 | Viabilidad en el sistema    !nota esto en sitemas grandes          | es muy viable y es necesario en sitemas grandes y distribudis, que usan muchas tecnologias | muy viable es el estandar en paginas web grandes modernas | esta es viable pero en agunos casos especificos,, como comentaba de saber que los requsiutos cambiaran mas de una vez, pero ew complejo de mantener por lo que es el menos viable en sistemas grandes  | 
 
+## 4  Selección del patrón Seleccionen un patrón y respondan: broker 
+1. ¿Qué problema resuelve? 
 
+    el prblema que resuelve es la conexcion entre el servidor y el cleitne, lo hace mas flexible puedindo conectar diferentes componentes
+2. ¿Por qué es mejor que las otras alternativas? 
+
+    no diria que es mejor, depende a que contexto del sistema tengas, pero su ventaja es comunicar componenetes distribuidos enstre aplicaciones o procesos
+3. ¿Qué componentes deben incorporarse? 
+
+    el cliente, el servidor y el broker
+4. ¿Qué componentes actuales deben modificarse? 
+
+    JwtAuthFilter, pasar a aqui la centrarlizacion de la auntenticacion y autorizacion, ya que el brojer validad la segruidad solo una vez
+    en docker-compose.yml, añafir la configuracion de red entre fronted, API y mysql
+5. ¿Qué atributos de calidad favorece?
+
+    compatibilidad: faviore a este atributo de calidad dado a que se puede contar con mas tecnologias, por lo que puede ser mas compatible para diferentes servidores
+    Adecuación funcional: dado a lo mismo se uede adecuar a diferentes servidores
+
+6. ¿Qué riesgos introduce? 
+
+    dado a que esta sentralizado si el broker cae el sistema cae por lo que eso puede traer problemas, el cuello de botella ya ue todo el trafico pasa por el, 
+7. ¿Qué atributo podría verse afectado negativamente? 
+
+    yo creo que el atributo que ma se pordira ver afectado es la mantenibilada del sistema
