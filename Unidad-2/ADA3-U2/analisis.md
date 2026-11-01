@@ -232,6 +232,30 @@ Lo que realmente definio la decisicion fueron los atributos de calidad que exige
 
 He aprendidoe que los estilos arquitectónicos se combinan según el alcance del problema, y que toda decisión técnica debe documentarse junto con sus sacrificios para poder reevaluarla sin problemas cuando el contexto del negocio cambie.
 
+**Diego Gervacio**
+
+El desarrollo de esta actividad permitió comprobar que un mismo conjunto de requisitos funcionales admite varias soluciones arquitectónicas válidas, y que la diferencia entre ellas está en los atributos de calidad que cada una favorece o sacrifica. El cuadro comparativo fue la herramienta mas útil para hacer visible esa diferencia, ninguna alternativa obtuvo valoraciones altas en todos los criterios, lo que confirma que toda decisión arquitectónica implica un sacrificio.
+
+La selección de Pipes & Filters no se basó en preferencias personales, sino en factores concretos del contexto, el proceso es por lotes, las reglas de validación cambian con frecuencia y algunas etapas pueden reutilizarse en otros procesos. Asimismo, el análisis ayudó a identificar riesgos que no eran evidentes al principio, como que la falla de un solo filtro puede detener todo el flujo.
+
+Gracias a esta actividad he entenido que una arquitectura no se elige una sola vez, sino que debe revisarse cuando cambian el volumen, la frecuencia o el numero de consumidores, tal como se observó en el análisis de cambios de contexto.
+
+**Juan Miranda**
+
+Al principio, cuando leímos el caso, yo pensaba que Publicador-Suscriptor iba a ser la mejor opción porque es el estilo que más se ve en sistemas modernos. Conforme fuimos llenando el cuadro comparativo me di cuenta de que para este problema no tenía mucho sentido y es que el proceso es una secuencia fija, cada etapa tiene un solo consumidor y el equipo no tiene experiencia con mensajería, asi que íbamos a pagar mucha complejidad sin necesitarla.
+
+Lo interesante fue ver que al analizar los cambios de contexto, ese mismo estilo terminó siendo la mejor opción cuando los resultados tienen que llegar a cinco aplicaciones. Eso me hizo ver que un estilo es mejor o no dependiendo del problema y de lo que el sistema necesita en ese momento.
+
+Esta actividad me ha hecho aprender que las decisiones de aquitectura se toman por los atributos de calidad que de verdad importan en el proyecto
+
+**Daniel Cauich**
+
+Lo que aprendí de la actividad fue el manejo de errores, porque es donde las tres alternativas se diferencian más. En capas basta con propagar excepciones y revertir una transacción, en Pipes & Filters hay que pensar en una tubería de rechazos, en un orquestador y en inserciones idempotentes para poder reprocesar y en Publicador-Suscriptor ni siquiera existe una respuesta directa, por lo que los errores se vuelven eventos que otro componente tiene que escuchar.
+
+Tambien me pareció valioso ver cómo una buena decisión inicial facilita los cambios posteriores. Al tener la validación aislada en un filtro, fue sencillo plantear que sus reglas se configuren cada mes o que otros sistemas la consuman como servicio por medio de un Broker, sin rediseñar el resto del procesamiento.
+
+En conclusión, aprendí que la calidad de una arquitectura se nota más en cómo responde a fallas y cambios que en el caso ideal y que esos escenarios deben pensarse desde el diseño y no cuando el sistema ya está en produccion.
+
 ---
 
 ## Referencias
